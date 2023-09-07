@@ -1,0 +1,731 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
+import time
+import requests
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import unittest
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.edge.service import Service
+import helpers
+import HtmlTestRunner
+
+
+
+class ChromeSearch(unittest.TestCase):
+
+    def setUp(self):
+        options = ChromeOptions()
+        options.page_load_strategy = 'eager'
+        self.driver = webdriver.Chrome(options=options)
+        self.driver.maximize_window()
+
+    def test_001_02(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        time.sleep(2)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is incorrect")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        # driver.save_screenshot("Metacritic.png")
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(2)
+
+    def test_001_03(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2)
+
+        # Searching for the video game "Alan Wake" for PC and then submitting the review for that game
+        driver.find_element(By.ID, helpers.metacritic_search).send_keys("Alan Wake")
+        time.sleep(2)
+        driver.find_element(By.ID, helpers.metacritic_search).submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.alan_wake_PC).click()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.write_a_review_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).clear()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).send_keys(helpers.correct_review)
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.submit_review_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(1)
+
+    def test_001_04(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.registration_button).click()
+        time.sleep(2)
+
+        # We used the incorrect input for the username in the registration section.
+        driver.find_element(By.ID, helpers.user_name_field).send_keys(helpers.incorrect_user_name)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_email_field).send_keys(helpers.different_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_email_field_confirm).send_keys(helpers.different_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_password).send_keys(helpers.account_password)
+        time.sleep(20)
+
+        # !On this step you will need to manually click on the "I'm not a robot" checkbox!
+
+        driver.find_element(By.ID, helpers.register_button).click()
+        time.sleep(1)
+
+    def test_001_05(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        # We are using the incorrect input in the email field
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.incorrect_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(1)
+
+    def test_001_06(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.metacritic_search).send_keys("Alan Wake")
+        time.sleep(2)
+        driver.find_element(By.ID, helpers.metacritic_search).submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.alan_wake_PC).click()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.write_a_review_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).clear()
+        time.sleep(2)
+
+        # We used less than 75 characters for the review to see if it can be submitted.
+        driver.find_element(By.ID, helpers.review_field).send_keys(helpers.incorrect_review)
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.submit_review_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(1)
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+class EdgeSearch(unittest.TestCase):
+
+    def setUp(self):
+        options = EdgeOptions()
+        options.page_load_strategy = 'eager'
+        self.driver = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()), options=options)
+        self.driver.maximize_window()
+
+    def test_002_02(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        time.sleep(2)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is incorrect")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        # driver.save_screenshot("Metacritic.png")
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(1)
+
+    def test_002_03(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2)
+
+        # Searching for the video game "Alan Wake" for PC and then submitting the review for that game
+        driver.find_element(By.ID, helpers.metacritic_search).send_keys("Alan Wake")
+        time.sleep(2)
+        driver.find_element(By.ID, helpers.metacritic_search).submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.alan_wake_PC).click()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.write_a_review_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).clear()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).send_keys(helpers.correct_review)
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.submit_review_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(1)
+
+    def test_002_04(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.registration_button).click()
+        time.sleep(2)
+
+        # We used the incorrect input for the username in the registration section.
+        driver.find_element(By.ID, helpers.user_name_field).send_keys(helpers.incorrect_user_name)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_email_field).send_keys(helpers.different_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_email_field_confirm).send_keys(helpers.different_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.registration_password).send_keys(helpers.account_password)
+        time.sleep(20)
+
+        # !On this step you will need to manually click on the "I'm not a robot" checkbox!
+
+        driver.find_element(By.ID, helpers.register_button).click()
+        time.sleep(1)
+
+    def test_002_05(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        # We are using the incorrect input in the email field
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.incorrect_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(1)
+
+    def test_002_06(self):
+        driver = self.driver
+        driver.get(helpers.google)
+        wait = WebDriverWait(driver, 5)
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@id='APjFqb']")))
+        time.sleep(1)
+
+        search = driver.find_element(By.ID, "APjFqb")
+        search.send_keys(helpers.metacritic_URL)
+        search.submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.metacritic_google_page).click()
+        time.sleep(2)
+
+        # Checking the response from the server
+        try:
+            r = requests.head(helpers.metacritic_URL)
+            print("Response code is:", r.status_code)
+        except requests.ConnectionError:
+            print("Failed to connect")
+
+        assert "Metacritic" in driver.title
+        print("Metacritic Title is: ", driver.title)
+        if "Metacritic" not in driver.title:
+            raise Exception("Title for Metacritic page is wrong!")
+        time.sleep(1)
+
+        driver.minimize_window()
+        time.sleep(1)
+        driver.maximize_window()
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.games_button).is_displayed()
+        print("'Games' button 'class' attribute is:",
+              (driver.find_element(By.XPATH, helpers.games_button).get_attribute("class")))
+        time.sleep(1)
+
+        assert helpers.metacritic_URL == driver.current_url
+        if helpers.metacritic_URL != driver.current_url:
+            print("Current Metacritic URL actually is: ", driver.current_url)
+        else:
+            print("Current Metacritic URL is as we expected: ", driver.current_url)
+
+        driver.find_element(By.ID, helpers.signUp).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.login_email_field).send_keys(helpers.account_email)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_password_field).send_keys(helpers.account_password)
+        time.sleep(1)
+
+        driver.find_element(By.ID, helpers.login_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.metacritic_search).send_keys("Alan Wake")
+        time.sleep(2)
+        driver.find_element(By.ID, helpers.metacritic_search).submit()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.alan_wake_PC).click()
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, helpers.write_a_review_button).click()
+        time.sleep(2)
+
+        driver.find_element(By.ID, helpers.review_field).clear()
+        time.sleep(2)
+
+        # We used less than 75 characters for the review to see if it can be submitted.
+        driver.find_element(By.ID, helpers.review_field).send_keys(helpers.incorrect_review)
+        time.sleep(1)
+
+        driver.find_element(By.XPATH, helpers.submit_review_button).click()
+        time.sleep(2.5)
+
+        driver.find_element(By.XPATH, helpers.logout_button).click()
+        time.sleep(1)
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+if __name__ == "__main__":
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='./HtmlReports'))
