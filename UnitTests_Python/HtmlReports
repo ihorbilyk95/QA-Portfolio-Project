@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unittest Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">Unittest Results</h2>
+                <p class='attribute'><strong>Start Time: </strong>2023-09-06 11:45:50</p>
+                <p class='attribute'><strong>Duration: </strong>252.61 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 5, Pass: 3, Error: 2</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.ChromeSearch</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_001_02</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Response code is: 301
+Metacritic Title is:  Metacritic - Movie Reviews, TV Reviews, Game Reviews, and Music Reviews
+'Games' button 'class' attribute is: primary_nav_item
+Current Metacritic URL is as we expected:  https://www.metacritic.com/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_001_03</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Response code is: 301
+Metacritic Title is:  Metacritic - Movie Reviews, TV Reviews, Game Reviews, and Music Reviews
+'Games' button 'class' attribute is: primary_nav_item
+Current Metacritic URL is as we expected:  https://www.metacritic.com/
+</p><p style="color:maroon;">NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@href="/game/pc/alan-wake"]"}
+  (Session info: chrome=116.0.5845.141); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+	GetHandleVerifier [0x00007FF6CE3152A2+57122]
+	(No symbol) [0x00007FF6CE28EA92]
+	(No symbol) [0x00007FF6CE15E3AB]
+	(No symbol) [0x00007FF6CE197D3E]
+	(No symbol) [0x00007FF6CE197E2C]
+	(No symbol) [0x00007FF6CE1D0B67]
+	(No symbol) [0x00007FF6CE1B701F]
+	(No symbol) [0x00007FF6CE1CEB82]
+	(No symbol) [0x00007FF6CE1B6DB3]
+	(No symbol) [0x00007FF6CE18D2B1]
+	(No symbol) [0x00007FF6CE18E494]
+	GetHandleVerifier [0x00007FF6CE5BEF82+2849794]
+	GetHandleVerifier [0x00007FF6CE611D24+3189156]
+	GetHandleVerifier [0x00007FF6CE60ACAF+3160367]
+	GetHandleVerifier [0x00007FF6CE3A6D06+653702]
+	(No symbol) [0x00007FF6CE29A208]
+	(No symbol) [0x00007FF6CE2962C4]
+	(No symbol) [0x00007FF6CE2963F6]
+	(No symbol) [0x00007FF6CE2867A3]
+	BaseThreadInitThunk [0x00007FFEA75C257D+29]
+	RtlUserThreadStart [0x00007FFEA8DCAA78+40]
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\zhavk\PycharmProjects\automation-04-23\Ihor Bilyk\Unittesting\Final_Project.py", line 146, in test_001_03
+    driver.find_element(By.XPATH, helpers.alan_wake_PC).click()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 739, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 345, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@href="/game/pc/alan-wake"]"}
+  (Session info: chrome=116.0.5845.141); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+	GetHandleVerifier [0x00007FF6CE3152A2+57122]
+	(No symbol) [0x00007FF6CE28EA92]
+	(No symbol) [0x00007FF6CE15E3AB]
+	(No symbol) [0x00007FF6CE197D3E]
+	(No symbol) [0x00007FF6CE197E2C]
+	(No symbol) [0x00007FF6CE1D0B67]
+	(No symbol) [0x00007FF6CE1B701F]
+	(No symbol) [0x00007FF6CE1CEB82]
+	(No symbol) [0x00007FF6CE1B6DB3]
+	(No symbol) [0x00007FF6CE18D2B1]
+	(No symbol) [0x00007FF6CE18E494]
+	GetHandleVerifier [0x00007FF6CE5BEF82+2849794]
+	GetHandleVerifier [0x00007FF6CE611D24+3189156]
+	GetHandleVerifier [0x00007FF6CE60ACAF+3160367]
+	GetHandleVerifier [0x00007FF6CE3A6D06+653702]
+	(No symbol) [0x00007FF6CE29A208]
+	(No symbol) [0x00007FF6CE2962C4]
+	(No symbol) [0x00007FF6CE2963F6]
+	(No symbol) [0x00007FF6CE2867A3]
+	BaseThreadInitThunk [0x00007FFEA75C257D+29]
+	RtlUserThreadStart [0x00007FFEA8DCAA78+40]
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_001_04</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Response code is: 301
+Metacritic Title is:  Metacritic - Movie Reviews, TV Reviews, Game Reviews, and Music Reviews
+'Games' button 'class' attribute is: primary_nav_item
+Current Metacritic URL is as we expected:  https://www.metacritic.com/
+</p><p style="color:maroon;">ElementClickInterceptedException: Message: element click intercepted: Element <button class="flat_blue_btn submit" id="visRegister">...</button> is not clickable at point (629, 513). Other element would receive the click: <iframe title="recaptcha challenge expires in two minutes" src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=0hCdE87LyjzAkFO5Ff-v7Hj1&amp;k=6LcW9BUTAAAAAGba7yjdqSkvfTSOWqGA9APhfxMD" name="c-px3794hgomxn" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 356px; height: 536px;"></iframe>
+  (Session info: chrome=116.0.5845.141)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6CE3152A2+57122]
+	(No symbol) [0x00007FF6CE28EA92]
+	(No symbol) [0x00007FF6CE15E3AB]
+	(No symbol) [0x00007FF6CE19D783]
+	(No symbol) [0x00007FF6CE19BD5F]
+	(No symbol) [0x00007FF6CE199DC8]
+	(No symbol) [0x00007FF6CE198FD5]
+	(No symbol) [0x00007FF6CE18F25F]
+	(No symbol) [0x00007FF6CE1B6FDA]
+	(No symbol) [0x00007FF6CE18EB76]
+	(No symbol) [0x00007FF6CE1B71F0]
+	(No symbol) [0x00007FF6CE1CEB82]
+	(No symbol) [0x00007FF6CE1B6DB3]
+	(No symbol) [0x00007FF6CE18D2B1]
+	(No symbol) [0x00007FF6CE18E494]
+	GetHandleVerifier [0x00007FF6CE5BEF82+2849794]
+	GetHandleVerifier [0x00007FF6CE611D24+3189156]
+	GetHandleVerifier [0x00007FF6CE60ACAF+3160367]
+	GetHandleVerifier [0x00007FF6CE3A6D06+653702]
+	(No symbol) [0x00007FF6CE29A208]
+	(No symbol) [0x00007FF6CE2962C4]
+	(No symbol) [0x00007FF6CE2963F6]
+	(No symbol) [0x00007FF6CE2867A3]
+	BaseThreadInitThunk [0x00007FFEA75C257D+29]
+	RtlUserThreadStart [0x00007FFEA8DCAA78+40]
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\zhavk\PycharmProjects\automation-04-23\Ihor Bilyk\Unittesting\Final_Project.py", line 229, in test_001_04
+    driver.find_element(By.ID, helpers.register_button).click()
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 94, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 395, in _execute
+    return self._parent.execute(command, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 345, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\zhavk\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="flat_blue_btn submit" id="visRegister">...</button> is not clickable at point (629, 513). Other element would receive the click: <iframe title="recaptcha challenge expires in two minutes" src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=0hCdE87LyjzAkFO5Ff-v7Hj1&amp;k=6LcW9BUTAAAAAGba7yjdqSkvfTSOWqGA9APhfxMD" name="c-px3794hgomxn" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 356px; height: 536px;"></iframe>
+  (Session info: chrome=116.0.5845.141)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6CE3152A2+57122]
+	(No symbol) [0x00007FF6CE28EA92]
+	(No symbol) [0x00007FF6CE15E3AB]
+	(No symbol) [0x00007FF6CE19D783]
+	(No symbol) [0x00007FF6CE19BD5F]
+	(No symbol) [0x00007FF6CE199DC8]
+	(No symbol) [0x00007FF6CE198FD5]
+	(No symbol) [0x00007FF6CE18F25F]
+	(No symbol) [0x00007FF6CE1B6FDA]
+	(No symbol) [0x00007FF6CE18EB76]
+	(No symbol) [0x00007FF6CE1B71F0]
+	(No symbol) [0x00007FF6CE1CEB82]
+	(No symbol) [0x00007FF6CE1B6DB3]
+	(No symbol) [0x00007FF6CE18D2B1]
+	(No symbol) [0x00007FF6CE18E494]
+	GetHandleVerifier [0x00007FF6CE5BEF82+2849794]
+	GetHandleVerifier [0x00007FF6CE611D24+3189156]
+	GetHandleVerifier [0x00007FF6CE60ACAF+3160367]
+	GetHandleVerifier [0x00007FF6CE3A6D06+653702]
+	(No symbol) [0x00007FF6CE29A208]
+	(No symbol) [0x00007FF6CE2962C4]
+	(No symbol) [0x00007FF6CE2963F6]
+	(No symbol) [0x00007FF6CE2867A3]
+	BaseThreadInitThunk [0x00007FFEA75C257D+29]
+	RtlUserThreadStart [0x00007FFEA8DCAA78+40]
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_001_05</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Response code is: 301
+Metacritic Title is:  Metacritic - Movie Reviews, TV Reviews, Game Reviews, and Music Reviews
+'Games' button 'class' attribute is: primary_nav_item
+Current Metacritic URL is as we expected:  https://www.metacritic.com/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_001_06</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Response code is: 301
+Metacritic Title is:  Metacritic - Movie Reviews, TV Reviews, Game Reviews, and Music Reviews
+'Games' button 'class' attribute is: primary_nav_item
+Current Metacritic URL is as we expected:  https://www.metacritic.com/
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 5, Pass: 3, Error: 2 -- Duration: 252.61 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html
